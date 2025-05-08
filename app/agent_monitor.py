@@ -14,6 +14,7 @@ langfuse = Langfuse(
     host="https://us.cloud.langfuse.com"
 )
 
+
 def monitored_gpt_call(user_input, user_id="demo-user"):
     trace = langfuse.trace(name="AgentInteraction", user_id=user_id)
     span = trace.span(name="GPT-Call")
@@ -26,9 +27,17 @@ def monitored_gpt_call(user_input, user_id="demo-user"):
         )
         content = response.choices[0].message.content
         logger.info("GPT Response: %s", content)
-        span.end(output=content, input=user_input, metadata=response.model_dump())
+
+        span.end(
+            output=content,
+            input=user_input,
+            metadata=response.model_dump()
+        )
+
         return content
+
     except Exception as e:
         logger.error("GPT call failed: %s", str(e))
         span.end(output=str(e), level="ERROR")
         raise
+
