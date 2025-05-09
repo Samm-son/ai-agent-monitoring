@@ -40,4 +40,3 @@ def monitored_gpt_call(user_input, user_id="demo-user"):
         logger.error("GPT call failed: %s", str(e))
         span.end(output=str(e), level="ERROR")
         raise
-
