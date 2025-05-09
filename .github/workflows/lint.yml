@@ -2,9 +2,9 @@ name: Lint Python Code
 
 on:
   push:
-    branches: [main, master]
+    branches: [dev, master]
   pull_request:
-    branches: [main, master]
+    branches: [dev, master]
 
 jobs:
   lint:
